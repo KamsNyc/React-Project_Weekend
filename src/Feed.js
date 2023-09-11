@@ -5,8 +5,7 @@ import InputOption from "./InputOption";
 import ImageIcon from "@mui/icons-material/Image";
 import { CalendarViewDay, EventNote, Subscriptions } from "@mui/icons-material";
 import Post from "./Post.js";
-import { db } from "../src/firebase.js";
-import { collection, addDoc, getDocs  } from "../node_modules/firebase/firestore";
+
 
 
 function Feed() {
@@ -19,32 +18,13 @@ function Feed() {
   //       {
   //         id: doc.id,
   //         data: doc.data(),
-  //       }
-  //     ) ))
-  //   ))
 
-  // }, [])
-
-  const fetchPost = async () => {
-       
-    await getDocs(collection(db, "posts"))
-        .then((querySnapshot)=>{              
-            const newData = querySnapshot.docs
-                .map((doc) => ({...doc.data(), id:doc.id }));
-            setPosts(newData);                
-            console.log(posts, newData);
-        })
-   
-}
-
-  useEffect(() => {
-    fetchPost();
-  }, [])
 
     //pervents refresh after click
   const sendPost = (e) => {
     e.preventDefault();
   };
+
 
   return (
     <div className="feed">
