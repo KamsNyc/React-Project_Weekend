@@ -1,30 +1,24 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./Feed.css";
 import CreateIcon from "@mui/icons-material/Create";
 import InputOption from "./InputOption";
 import ImageIcon from "@mui/icons-material/Image";
 import { CalendarViewDay, EventNote, Subscriptions } from "@mui/icons-material";
 import Post from "./Post.js";
+import { db } from "./firebase.js";
+import { auth } from "./firebase.js";
 
 function Feed() {
-  const [posts, setPosts]= useState([])
+  const [posts, setPosts] = useState([]);
 
-  // useEffect(() => {
-  //   db.collection('posts').onSnapshot(snapshot =>
-  //     setPosts(snapshot.docs.map((doc)=>({
-  //         id: doc.id,
-  //         data: doc.data(),
-  //     }))
-  //     )
-  //   );
-  // }, []);
+  console.log(db)
+  console.log(auth)
+
 
   //pervents refresh after click
-  const sendPost = (e) =>{
-      e.preventDefault();
-
-      setPosts();
-  }
+  const sendPost = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="feed">
@@ -33,7 +27,9 @@ function Feed() {
           <CreateIcon />
           <form>
             <input type="text" />
-            <button onClick={sendPost} type="submit">Send</button>
+            <button onClick={sendPost} type="submit">
+              Send
+            </button>
           </form>
         </div>
 
@@ -53,13 +49,15 @@ function Feed() {
       </div>
 
       {/* Posts */}
-      {posts.map( (post) => (
+      {posts.map((post) => (
         <Post />
       ))}
 
-      <Post name={'Kamel Singh'} description={'This is a test'} message={'WOW this worked'} />
-
-
+      <Post
+        name={"Kamel Singh"}
+        description={"This is a test"}
+        message={"WOW this worked"}
+      />
     </div>
   );
 }
