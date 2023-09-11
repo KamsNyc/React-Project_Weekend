@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./Feed.css";
 import CreateIcon from "@mui/icons-material/Create";
 import InputOption from "./InputOption";
@@ -9,9 +9,21 @@ import Post from "./Post.js";
 function Feed() {
   const [posts, setPosts]= useState([])
 
+  // useEffect(() => {
+  //   db.collection('posts').onSnapshot(snapshot =>
+  //     setPosts(snapshot.docs.map((doc)=>({
+  //         id: doc.id,
+  //         data: doc.data(),
+  //     }))
+  //     )
+  //   );
+  // }, []);
+
+  //pervents refresh after click
   const sendPost = (e) =>{
       e.preventDefault();
 
+      setPosts();
   }
 
   return (
