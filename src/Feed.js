@@ -5,17 +5,43 @@ import InputOption from "./InputOption";
 import ImageIcon from "@mui/icons-material/Image";
 import { CalendarViewDay, EventNote, Subscriptions } from "@mui/icons-material";
 import Post from "./Post.js";
-import { db } from "./firebase.js";
-import { auth } from "./firebase.js";
+import { db } from "../src/firebase.js";
+import { collection, addDoc, getDocs  } from "../node_modules/firebase/firestore";
+
 
 function Feed() {
   const [posts, setPosts] = useState([]);
 
-  console.log(db)
-  console.log(auth)
 
+  // useEffect(()=>{
+  //   db.collection('posts').onSnapshot(snapshot => (
+  //     setPosts(snapshot.docs.map(doc =>(
+  //       {
+  //         id: doc.id,
+  //         data: doc.data(),
+  //       }
+  //     ) ))
+  //   ))
 
-  //pervents refresh after click
+  // }, [])
+
+  const fetchPost = async () => {
+       
+    await getDocs(collection(db, "posts"))
+        .then((querySnapshot)=>{              
+            const newData = querySnapshot.docs
+                .map((doc) => ({...doc.data(), id:doc.id }));
+            setPosts(newData);                
+            console.log(posts, newData);
+        })
+   
+}
+
+  useEffect(() => {
+    fetchPost();
+  }, [])
+
+    //pervents refresh after click
   const sendPost = (e) => {
     e.preventDefault();
   };

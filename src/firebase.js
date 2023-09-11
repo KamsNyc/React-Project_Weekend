@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "../node_modules/firebase/app";
 import { getAuth} from "../node_modules/firebase/auth";
-import { getFirestore } from "../node_modules/firebase/firestore/lite";
+import { getFirestore } from "../node_modules/firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
