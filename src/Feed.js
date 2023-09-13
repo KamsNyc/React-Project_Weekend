@@ -5,23 +5,29 @@ import InputOption from "./InputOption";
 import ImageIcon from "@mui/icons-material/Image";
 import { CalendarViewDay, EventNote, Subscriptions } from "@mui/icons-material";
 import Post from "./Post.js";
-import {db, auth} from './firebase'
-
-
-
+import { db, auth } from "./firebase";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
 
+  useEffect(() => {
+    db.collection("posts").onSnapshot((snapshot) => {
+      setPosts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    });
+  }, []);
 
 
-    //pervents refresh after click
+  //pervents refresh after click
   const sendPost = (e) => {
     e.preventDefault();
 
-    console.log(auth)
+    console.log(auth);
   };
-
 
   return (
     <div className="feed">
