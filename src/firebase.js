@@ -1,5 +1,5 @@
-import firebase from '../node_modules/firebase/app';
-
+import {initializeApp} from '../node_modules/firebase/app';
+import { getFirestore } from '../node_modules/firebase/firestore';
 
 
 const firebaseConfig = {
@@ -12,8 +12,7 @@ const firebaseConfig = {
     measurementId: "G-5HGSWWZEGJ"
   };
 
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore(app);
-  const auth = firebase.auth();
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-  export {db, auth}
+  export {db}

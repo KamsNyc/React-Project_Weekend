@@ -5,8 +5,7 @@ import InputOption from "./InputOption";
 import ImageIcon from "@mui/icons-material/Image";
 import { CalendarViewDay, EventNote, Subscriptions } from "@mui/icons-material";
 import Post from "./Post.js";
-import firebase from '../node_modules/firebase/app';
-import db from './firebase'
+import {db} from './firebase'
 
 
 
@@ -15,10 +14,11 @@ function Feed() {
 
 
 
-
     //pervents refresh after click
   const sendPost = (e) => {
     e.preventDefault();
+
+    console.log(db)
   };
 
 
