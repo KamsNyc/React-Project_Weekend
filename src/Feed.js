@@ -6,16 +6,16 @@ import ImageIcon from "@mui/icons-material/Image";
 import { CalendarViewDay, EventNote, Subscriptions } from "@mui/icons-material";
 import Post from "./Post.js";
 import { db } from "./firebase.js";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
-import { serverTimestamp } from "firebase/firestore";
-
+import { addDoc, collection, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
 
 function Feed() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "posts"), (snapshot) => {
+    const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const postData = snapshot.docs.map((doc) => ({
         id: doc.id,
         data: doc.data(),
@@ -35,7 +35,7 @@ function Feed() {
         description: "This is a test",
         message: input,
         photoUrl: "",
-        timestamp: serverTimestamp()
+        timestamp: serverTimestamp(),
       });
 
       setInput("");
